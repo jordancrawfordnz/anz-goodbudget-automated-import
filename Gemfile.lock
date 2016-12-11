@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    anz_bank_csv_cleaner (0.1)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     ffi (1.9.14)
@@ -15,6 +16,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  anz_bank_csv_cleaner (~> 0.1)
   selenium-webdriver
 
 BUNDLED WITH

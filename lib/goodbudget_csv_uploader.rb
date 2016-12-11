@@ -52,7 +52,5 @@ class GoodBudgetCSVUploader
     end
     desired_account.click
     driver.find_element(:tag_name, "form").submit
-
-    # TODO: Doesn't close the driver??
   end
 end
