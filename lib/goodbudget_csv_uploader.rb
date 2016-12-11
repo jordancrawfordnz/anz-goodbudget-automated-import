@@ -1,6 +1,6 @@
 require "selenium-webdriver"
 
-class GoodBudgetCSVUploader
+class GoodbudgetCSVUploader
   IMPORT_URL = "https://goodbudget.com/import/upload"
   FILE_UPLOAD_FIELD_ID = "import_upload_file"
   USERNAME_FIELD_ID = "username"

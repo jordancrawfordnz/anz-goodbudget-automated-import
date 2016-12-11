@@ -6,7 +6,7 @@ require("anz_bank_csv_cleaner")
 
 if ARGV.length != 3
   puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account name]"
-  return
+  exit
 end
 
 anz_customer_id = ARGV[0]
@@ -33,7 +33,7 @@ Dir.mktmpdir do |dir|
 
   ANZBankCSVCleaner.new(import_path: downloaded_csv_path, export_path: clean_csv_path).run
 
-  csv_uploader = GoodBudgetCSVUploader.new(
+  csv_uploader = GoodbudgetCSVUploader.new(
     username: goodbudget_username,
     password: goodbudget_password,
     account_name: account_name,
