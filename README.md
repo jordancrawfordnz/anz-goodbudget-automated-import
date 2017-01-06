@@ -9,6 +9,8 @@
 - Ensure you have Chrome, Ruby and Bundler installed.
 - Clone the repository.
 - Run ``bundler install`` in the repository.
-- Run from the ``bin`` folder with ``anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account name]``
+- Run from the ``bin`` folder with ``anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]``
 
 You will be asked for your ANZ and Goodbudget password. This is not a command line argument for security reasons. This allows automation of some of the arguments but without storing your passwords in plain text on the system.
+
+After an account import, press enter to continue to the next account, or press Control+C if finished.

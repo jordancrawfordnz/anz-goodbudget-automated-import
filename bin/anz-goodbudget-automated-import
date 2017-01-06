@@ -2,14 +2,14 @@
 
 require_relative("../lib/anz_goodbudget_automated_importer")
 
-if ARGV.length != 3
-  puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account name]"
+if ARGV.length < 3
+  puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]"
   exit
 end
 
-anz_customer_id = ARGV[0]
-goodbudget_username = ARGV[1]
-account_name = ARGV[2]
+anz_customer_id = ARGV.shift
+goodbudget_username = ARGV.shift
+account_names = ARGV.dup
 ARGV.clear
 
 print "ANZ Password: "
@@ -18,13 +18,25 @@ anz_password = gets.chomp
 print "Goodbudget Password: "
 goodbudget_password = gets.chomp
 
-ANZGoodbudgetAutomatedImporter.new(
-  anz_customer_id: anz_customer_id,
-  anz_password: anz_password,
-  account_name: account_name,
-  goodbudget_username: goodbudget_username,
-  goodbudget_password: goodbudget_password
-).run
+account_names.each_with_index do |account_name, index|
+  puts "Importing data for #{account_name}."
 
-puts "Press enter when finished..."
-gets
+  ANZGoodbudgetAutomatedImporter.new(
+    anz_customer_id: anz_customer_id,
+    anz_password: anz_password,
+    account_name: account_name,
+    goodbudget_username: goodbudget_username,
+    goodbudget_password: goodbudget_password
+  ).run
+
+  if index == account_names.length - 1
+    puts "Press enter when finished..."
+  else
+    puts "Press enter to start #{account_names[index + 1]}..."
+  end
+  begin
+    gets
+  rescue Exception => e
+    break
+  end
+end
