@@ -30,7 +30,7 @@ account_names.each_with_index do |account_name, index|
   ).run
 
   if index == account_names.length - 1
-    puts "Press enter when finished..."
+    puts "Press enter when finished all imports..."
   else
     puts "Press enter to start #{account_names[index + 1]}..."
   end
