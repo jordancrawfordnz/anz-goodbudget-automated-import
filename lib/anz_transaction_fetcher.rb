@@ -7,7 +7,7 @@ class ANZTransactionFetcher
   LOGIN_BUTTON_ID = "submit"
   EXPORT_BUTTON_TEXT = "Export"
   EXPORT_DOWNLOAD_BUTTON_NAME = "_eventId_exportTransactions"
-  LOGOUT_BUTTON_TEXT = "Log off"
+  LOGOUT_BUTTON_ID = "logout"
 
   def initialize(customer_id:, password:, account_name:, download_dir:)
     @customer_id = customer_id
@@ -39,7 +39,7 @@ class ANZTransactionFetcher
     export_download_button = @wait.until { driver.find_element(:name, EXPORT_DOWNLOAD_BUTTON_NAME) }
     export_download_button.click
 
-    driver.find_element(:link_text, LOGOUT_BUTTON_TEXT).click
+    driver.find_element(:id, LOGOUT_BUTTON_ID).click
     driver.quit
     changed_files = Dir.entries(@download_dir) - initial_download_dir_contents
     @download_dir + "/" + changed_files.first
