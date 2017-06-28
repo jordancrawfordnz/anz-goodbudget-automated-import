@@ -1,42 +1,53 @@
 #!/usr/bin/env ruby
 
-require_relative("../lib/anz_goodbudget_automated_importer")
+require_relative("../lib/fetch_and_upload_transactions")
+require_relative("../anz/lib/fetch_transactions")
+require_relative("../goodbudget/lib/upload_transactions")
 
-if ARGV.length < 3
-  puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]"
-  exit
-end
-
-anz_customer_id = ARGV.shift
-goodbudget_username = ARGV.shift
-account_names = ARGV.dup
-ARGV.clear
-
-print "ANZ Password: "
-anz_password = gets.chomp
-
-print "Goodbudget Password: "
-goodbudget_password = gets.chomp
-
-account_names.each_with_index do |account_name, index|
-  puts "Importing data for #{account_name}."
-
-  ANZGoodbudgetAutomatedImporter.new(
-    anz_customer_id: anz_customer_id,
-    anz_password: anz_password,
-    account_name: account_name,
-    goodbudget_username: goodbudget_username,
-    goodbudget_password: goodbudget_password
-  ).run
-
-  if index == account_names.length - 1
-    puts "Press enter when finished all imports..."
-  else
-    puts "Press enter to start #{account_names[index + 1]}..."
+# begin
+  if ARGV.length < 3
+    puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]"
+    exit
   end
-  begin
-    gets
-  rescue Exception => e
-    break
+
+  anz_customer_id = ARGV.shift
+  goodbudget_username = ARGV.shift
+  account_names = ARGV.dup
+  ARGV.clear
+
+  print "ANZ Password: "
+  anz_password = gets.chomp
+
+  print "Goodbudget Password: "
+  goodbudget_password = gets.chomp
+
+  account_names.each_with_index do |account_name, index|
+    puts "Importing data for #{account_name}."
+
+    fetcher = ANZ::FetchTransactions.new(
+      customer_id: anz_customer_id,
+      password: anz_password,
+      account_name: account_name,
+    )
+
+    uploader = Goodbudget::UploadTransactions.new(
+      username: goodbudget_username,
+      password: goodbudget_password,
+      account_name: account_name
+    )
+
+    FetchAndUploadTransactions.new(
+      fetcher: fetcher,
+      uploader: uploader
+    ).call do
+      if index == account_names.length - 1
+        puts "Press enter when finished all imports..."
+      else
+        puts "Press enter to start #{account_names[index + 1]}..."
+      end
+      gets
+    end
   end
-end
+# rescue Exception
+#   # Prevent nasty error messages on control-c.
+# end
