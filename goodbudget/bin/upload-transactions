@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative("../lib/upload_transactions")
+
+if ARGV.length != 4
+  puts "upload-transactions [Username] [Password] [Account name] [Upload path]"
+  exit
+end
+
+username = ARGV.shift
+password = ARGV.shift
+account_name = ARGV.shift
+upload_path = ARGV.shift
+
+upload_transactions_service = Goodbudget::UploadTransactions.new(
+  username: username,
+  password: password,
+  account_name: account_name
+)
+upload_transactions_service.upload(transactions_path: upload_path)

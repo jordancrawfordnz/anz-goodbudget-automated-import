@@ -69,7 +69,8 @@ module ANZ
 
     def login(username:, password:)
       driver.navigate.to(LOGIN_URL)
-      driver.find_element(:name, USERNAME_FIELD_NAME).send_keys(username)
+      username_field = wait.until { driver.find_element(:name, USERNAME_FIELD_NAME) }
+      username_field.send_keys(username)
       driver.find_element(:name, PASSWORD_FIELD_NAME).send_keys(password)
       driver.find_element(:id, LOGIN_BUTTON_ID).submit
     end

@@ -6,7 +6,7 @@
 - Sets up the import in Goodbudget, leaving you to classify transactions.
 
 ## How do I use this?
-- Ensure you have Chrome, Ruby and Bundler installed.
+- Ensure you have Chrome, ChromeDriver (at least version 2.33), Ruby and Bundler installed.
 - Clone the repository.
 - Run ``bundler install`` in the repository.
 - Run from the ``bin`` folder with ``anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]``

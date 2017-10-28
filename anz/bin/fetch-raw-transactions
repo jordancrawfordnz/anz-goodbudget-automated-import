@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require_relative("../lib/fetch_raw_transactions")
+
+if ARGV.length != 3
+  puts "fetch-raw-transactions [ANZ customer ID] [ANZ Password] [Account name]"
+  exit
+end
+
+anz_customer_id = ARGV.shift
+anz_password = ARGV.shift
+account_name = ARGV.shift
+
+Dir.mktmpdir do |working_directory|
+  fetch_raw_service = ANZ::FetchRawTransactions.new(
+    customer_id: anz_customer_id,
+    password: anz_password,
+    account_name: account_name,
+    download_dir: working_directory
+  )
+
+  fetch_raw_service.call
+end

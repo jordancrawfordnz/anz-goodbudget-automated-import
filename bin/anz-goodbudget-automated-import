@@ -3,8 +3,9 @@
 require_relative("../lib/fetch_and_upload_transactions")
 require_relative("../anz/lib/fetch_transactions")
 require_relative("../goodbudget/lib/upload_transactions")
+require 'byebug'
 
-# begin
+begin
   if ARGV.length < 3
     puts "anz-goodbudget-automated-import [ANZ customer ID] [Goodbudget Username] [Account names] [...]"
     exit
@@ -48,6 +49,6 @@ require_relative("../goodbudget/lib/upload_transactions")
       gets
     end
   end
-# rescue Exception
-#   # Prevent nasty error messages on control-c.
-# end
+rescue Interrupt
+  # Prevent nasty error messages on control-c.
+end
