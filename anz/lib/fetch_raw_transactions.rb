@@ -6,8 +6,8 @@ module ANZ
     USERNAME_FIELD_NAME = "userId"
     PASSWORD_FIELD_NAME = "password"
     LOGIN_BUTTON_ID = "submit"
-    EXPORT_BUTTON_TEXT = "Export"
-    EXPORT_DOWNLOAD_BUTTON_NAME = "_eventId_exportTransactions"
+    EXPORT_BUTTON_ID = "transactions-export-panel-toggle"
+    EXPORT_DOWNLOAD_ID = "transaction-export-submit"
     LOGOUT_BUTTON_ID = "logout"
 
     def initialize(customer_id:, password:, account_name:, download_dir:)
@@ -85,11 +85,12 @@ module ANZ
     end
 
     def download_exported_transactions_for_current_account
-      export_button = wait.until { driver.find_element(:link_text, EXPORT_BUTTON_TEXT) }
+      export_button = wait.until { driver.find_element(:id, EXPORT_BUTTON_ID) }
       export_button.click
 
-      export_download_button = wait.until { driver.find_element(:name, EXPORT_DOWNLOAD_BUTTON_NAME) }
+      export_download_button = wait.until { driver.find_element(:id, EXPORT_DOWNLOAD_ID) }
       export_download_button.click
+      sleep 0.2
     end
   end
 end
