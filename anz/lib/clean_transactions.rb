@@ -1,4 +1,4 @@
-require("anz_bank_csv_cleaner")
+require "anz_bank_csv_cleaner"
 
 module ANZ
   class CleanTransactions

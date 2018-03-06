@@ -88,8 +88,11 @@ module ANZ
       export_button = wait.until { driver.find_element(:id, EXPORT_BUTTON_ID) }
       export_button.click
 
+      sleep 0.2
+
       export_download_button = wait.until { driver.find_element(:id, EXPORT_DOWNLOAD_ID) }
       export_download_button.click
+
       sleep 0.2
     end
   end
