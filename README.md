@@ -1,5 +1,11 @@
 # ANZ Goodbudget Automated import
 
+---
+
+**Please note:** This project is not actively maintained, it may no longer work and may depend on out of date dependencies.
+
+---
+
 ## What does this do?
 - Fetches your bank transactions from the ANZ Bank website (ANZ New Zealand)
 - Cleans the CSV using [jordancrawfordnz/anz-csv-export-cleaner](https://github.com/jordancrawfordnz/anz-csv-export-cleaner). This makes transactions easy to identify in Goodbudget.
